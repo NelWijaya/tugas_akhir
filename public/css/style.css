@@ -1,0 +1,142 @@
+body{
+    font-family: 'Montserrat';
+}
+
+.navbar{
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    background-color: hsl(0, 0%, 9%);
+    border-bottom: solid #333333 1px;
+}
+
+.nav-item{
+    margin-right: 25px;
+    font-weight: 200;
+}
+
+.nav-item.active a{
+    color: #74de7a !important;
+    font-weight: bold;
+}
+
+.nav-link span{
+    color: #74de7a;
+}
+
+.carousel{
+    background-color: #171717;
+    height: 480px;
+    color: #F6F7FB;
+}
+
+.carousel p{
+    font-weight: 200;    
+}
+
+.carousel h1{
+    font-family: 'lora';
+}
+
+.carousel a.btn{
+    font-family: 'lora';
+    background-color: #74de7a;
+}
+
+.special{
+    background-color: #EAEAEF;
+    padding-bottom: 50px;
+}
+
+.special p, .designer p, .footer p, .footer a{
+    font-weight: 200;
+    color: #b7b7b7;
+}
+
+.footer a .active{
+    font-weight: bold;
+}
+
+.special h3, .designer h3{
+    font-weight: bold;
+    font-family: 'lora';
+}
+
+.special h5, .designer h5{
+    color: #171717;
+    font-family: 'lora';
+}
+
+.figure-img{
+    position: relative;
+}
+
+/* .figure{
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.4);
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.4);
+} */
+
+.figure-img a{
+    position: absolute;
+    top: 0;
+    bottom: 8px;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.7);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.figure-img:hover a{
+    opacity: 1;
+}
+
+.footer a{
+    font-size: small;
+}
+
+.single_product figcaption img{
+    width: 60px;
+    height: 60px;
+}
+
+.product-thumbnail-container{
+    background-color: white;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
+    width: 270px;
+    padding: 5px;
+    margin: auto;
+    transform: translateY(-45px);
+}
+
+.product-thumbnail-container a:hover{
+    text-decoration: none;
+    border: 1px #74de7a solid;
+}
+
+.btn-product{
+    margin: 20px;
+    border-bottom: solid 1px #efefef;
+}
+
+.btn-product .btn{
+    display: block;
+    margin: 10px 0px;
+}
+
+.design-at h5, .design-at p{
+    font-size: 14px;
+    font-weight: 200;
+    color: #b7b7b7;
+}
+
+.design-at h4{
+    font-size: 18px;
+    font-weight: bold;
+    color: #171717;
+}
+
+.design-at span{
+    color: black;
+}
