@@ -21,24 +21,23 @@
     <!-- Navbar -->
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand">Navbar</a>
+
         <button class="navbar-toggler d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="button col-12 col-md-3 ">
+
             @if (Session('name'))
-            <a class="navbar-brand">Hello Hendrik</a>
+                <a class="navbar-brand">Hello {{ Session('name') }}</a>
             @else
-            <button type="button" class="btn btn-secondary col-12 col-lg-5 float-md-right ml-lg-3 ml-md-1 mb-3 mb-md-0 mt-3 mt-md-0"  data-toggle="modal" data-target="#signup">
-                Sign Up
-            </button>
-
-            <button type="button" class="btn btn-primary col-12 mt-md-3 mt-lg-0 col-lg-5 mb-3 mb-md-0 float-md-right" data-toggle="modal" data-target="#login">
-                Log In
-            </button>
-
+                <button type="button" class="btn btn-secondary col-12 col-lg-5 float-md-right ml-lg-3 ml-md-1 mb-3 mb-md-0 mt-3 mt-md-0"  data-toggle="modal" data-target="#signup">
+                    Sign Up
+                </button>
+                <button type="button" class="btn btn-primary col-12 mt-md-3 mt-lg-0 col-lg-5 mb-3 mb-md-0 float-md-right" data-toggle="modal" data-target="#login">
+                    Log In
+                </button>
             @endif
-
         </div>
     </nav>
     <!-- End Navbar -->
@@ -54,19 +53,17 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                <form action="http://localhost/tugas_akhir/public/login" method="POST">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" name="password">
-                    </div>
-                    {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
-
+                <form action="login" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" required>
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -74,25 +71,38 @@
                     </div>
                 </form>
             </div>
-    </div>
+        </div>
     </div>
 
     <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-             <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Sign Up</button>
-            </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="sign-up/store" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="sumbit" class="btn btn-primary">Sign Up</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -114,8 +124,8 @@
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 pt-3">
                 <!-- Content -->
-                 @yield('content')
-                 <!-- EndContent -->
+                @yield('content')
+                <!-- EndContent -->
             </main>
         </div>
 
@@ -123,14 +133,9 @@
 
     <!-- End Sitebar -->
 
-
-
-
-    <!-- Footer -->
-    <!-- End Footer -->
-
-
     <!-- Optional JavaScript -->
+    @stack('script')
+
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="{{asset('js/jquery-3.4.1.min.js')}}" ></script>
     <script src="{{asset('js/popper.min.js')}}"></script>

@@ -11,9 +11,13 @@
 |
 */
 
-Route::get('/', 'AuthController@index');
+// Route::get('/', 'AuthController@index');
 
 Route::post('login', 'AuthController@login');
 Route::get('sign-up', 'AuthController@signUp');
 Route::post('sign-up/store', 'AuthController@store');
 Route::get('logout', 'AuthController@logout');
+
+Route::get('/', function () {
+    return view('pages.index');
+});

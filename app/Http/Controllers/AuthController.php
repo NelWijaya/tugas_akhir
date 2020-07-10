@@ -10,42 +10,49 @@ use Illuminate\Support\Facades\Session;
 class AuthController extends Controller
 {
     public function index(){
-        if(Session::has('id')){
-            return view('master');
-        } else{
-            return view('master');
-        }
+        return view('pages.index');
+        // if(Session::has('id')){
+        //     return view('pages.index');
+        // } else{
+        //     return view('master');
+        // }
     }
     public function login(Request $request){
-        $email = $request->input('email');
-        $password = $request->input('password');
+        $email      =   $request->input('email');
+        $password   =   $request->input('password');
 
-        $auth = Auth::attempt(['email' => $email, 'password' => $password]);
+        $auth       =   Auth::attempt(['email' => $email, 'password' => $password]);
         if($auth){
-            $user = User::where('email', $email)->first();
+            $user   =   User::where('email', $email)->first();
 
             //MAKE SESSION
             session(['name' => $user->name]);
             session(['id' => $user->user_id]);
+
             return redirect('/');
         }
     }
     public function store(Request $request){
-        $email = $request->input('email');
-        $name = $request->input('name');
-        $password = $request->input('password');
+        // dd($request->all());
+        $email          =    $request->input('email');
+        $name           =    $request->input('name');
+        $password       =    $request->input('password');
+        // dd($request->all());
 
-        $alreadyEmail = User::where('email', $email)->first();
+        $alreadyEmail   =    User::where('email', $email)->first();
 
-        // dd($alreadyEmail);
         if(!$alreadyEmail){
-            User::create([
-                'email' => $email,
-                'name' => $name,
-                'point' => 0,
-                'password' => bcrypt($password)
-            ]);
-            return "success";
+            $user = User::create([
+                    'email'     => $email,
+                    'name'      => $name,
+                    'point'     => 0,
+                    'password'  => bcrypt($password)
+                ]);
+
+            session(['name' => $user->name]);
+            session(['id' => $user->user_id]);
+
+            return redirect('/');
         } else {
             return "email already registered";
         }
