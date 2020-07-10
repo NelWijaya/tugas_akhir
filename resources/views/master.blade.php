@@ -26,12 +26,19 @@
         </button>
 
         <div class="button col-12 col-md-3 ">
+            @if (Session('name'))
+            <a class="navbar-brand">Hello Hendrik</a>
+            @else
             <button type="button" class="btn btn-secondary col-12 col-lg-5 float-md-right ml-lg-3 ml-md-1 mb-3 mb-md-0 mt-3 mt-md-0"  data-toggle="modal" data-target="#signup">
                 Sign Up
             </button>
+
             <button type="button" class="btn btn-primary col-12 mt-md-3 mt-lg-0 col-lg-5 mb-3 mb-md-0 float-md-right" data-toggle="modal" data-target="#login">
                 Log In
             </button>
+
+            @endif
+
         </div>
     </nav>
     <!-- End Navbar -->
@@ -48,22 +55,22 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                <form>
+                <form action="http://localhost/tugas_akhir/public/login" method="POST">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary">Log In</button>
+                        <button type="submit" class="btn btn-primary">Log In</button>
                     </div>
                 </form>
             </div>
