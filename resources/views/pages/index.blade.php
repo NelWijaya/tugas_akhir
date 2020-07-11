@@ -18,20 +18,22 @@
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="#" method="post">
+                    <form action="/pertanyaan" method="POST">
+                        @csrf
                         <div class="modal-body">
-                            <input type="text" class=" mb-2" placeholder="Title" required>
-                            <textarea name="content" class="form-control my-editor" id="answer" rows="10" style="width: 100%;"></textarea>
+                            <input type="text" class=" mb-2" placeholder="Title" name="question_title" required>
+                            <textarea name="question_content" class="form-control my-editor" id="content" rows="10" style="width: 100%;"></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Add Question</button>
+                            <button type="submit" class="btn btn-primary">Add Question</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <!--
     <div class="col-12 col-md-9">
         <form class="form-inline my-2 my-lg-0" method="POST" action="#">
             <div class="input-group mb-3">
@@ -42,9 +44,11 @@
             </div>
         </form>
     </div>
+    -->
 </div>
+
+@foreach ($questions as $key => $question)
 <div class="card mt-5">
-  <h5 class="card-header">Detail pertanyaan</h5>
   <div class="card-body">
         <div class="row">
             <div class="col-12 mb-4 mb-sm-0 col-sm-3 col-lg-2">
@@ -61,26 +65,27 @@
                 <div class="row">
                     <div class="col">
                         <!-- Judul nya link, biar bisa menuju ke pertanyaannya secara detail -->
-                        <a href="#"> <h5 class="card-title">Judul</h5> </a>
-                        <p class="card-text">Isi pertanyaan</p><br>
+                        <a href="/pertanyaan/{{$question->question_id}}"> <h5 class="card-title">{{$question->question_title}}</h5> </a>
+                        <p class="card-text">{!! $question->question_content !!}</p><br>
                         <!-- Ini untuk tags, kalau di klik akan memunculkan pertanyaan yang punya tags -->
                         <a href="#" class="btn btn-success">tags 1</a> <a href="#" class="btn btn-success">tags 2</a>
                     </div>
                 </div>
                 <div class="row pt-3">
                     <div class="col">
-                        <p>Asked by : Nama Pengguna yang bertanya
-                            <br><span>Jam posted - Jam updated</span>
+                        <p>Asked by : {{$question->name}}
+                            <br><span>Asked at  {{$question->created_at}}</span>
+                            <br><span>Updated at  {{$question->updated_at}}</span>
                         </p>
                     </div>
                 </div>
 
             </div>
         </div>
-
-
-  </div>
+    </div>
 </div>
+@endforeach
+
 @endsection
 @push('script')
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>

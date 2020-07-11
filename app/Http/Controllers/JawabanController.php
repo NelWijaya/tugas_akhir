@@ -15,8 +15,9 @@ class JawabanController extends Controller
         $data = JawabanModel::get_all($id);
         $question = $data[0];
         $answers = $data[1];
-        //dd($pertanyaan);
-        return view('index', compact('question', 'answers', 'id')); //view to detail question
+        $ansqty = count($answers);
+        //dd($ansqty);
+        return view('pages.detail_question', compact('question', 'answers', 'id', 'ansqty')); //view to detail question
     }
 
     public function store(Request $request, $id){
@@ -24,10 +25,11 @@ class JawabanController extends Controller
         $data = $request->all();
         unset($data["_token"]);
         $question_id = array("question_id" => $id);
-        $data = array_merge($data, $pertanyaan_id);
+        $uid = array("user_id" => 3); //temporary user_id, nanti ganti ke auth::id
+        $data = array_merge($data, $question_id, $uid);
         //dd($data);
         $ans = JawabanModel::save($data);
-        $link = "/jawaban/" . $id;
+        $link = "/pertanyaan/" . $id;
         return Redirect::to($link); //redirect to detail question
         
     }

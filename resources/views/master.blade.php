@@ -48,6 +48,7 @@
                     </button>
                 </div>
                 <form action="#" method="POST">
+                    
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email address</label>
@@ -77,11 +78,12 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="#" method="POST">
+                <form action="/user/create" method="POST">
+                    @csrf
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="email" class="form-control" id="name" name="nama" required>
+                            <input type="text" class="form-control" id="name" name="name" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email address</label>
@@ -109,8 +111,8 @@
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 bg-light d-md-block sidebar collapse border-right">
                 <div class="sidebar-sticky pt-3">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">All Question</a>
-                        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Tags</a>
+                        <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="/pertanyaan" role="tab" aria-controls="v-pills-home" aria-selected="false">All Question</a>
+                        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="/pertanyaan" role="tab" aria-controls="v-pills-profile" aria-selected="false">Tags</a>
                         <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Users</a>
                     </div>
                 </div>

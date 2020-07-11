@@ -9,13 +9,22 @@ class JawabanModel {
         $question = DB::table('questions')
             ->where('question_id', '=', $id)
             ->get();
+        $question2 = DB::table('questions')
+            ->leftJoin('users', 'questions.user_id', '=', 'users.user_id')
+            ->where('question_id', '=', $id)
+            ->get();
 
         $answers = DB::table('answers')
             ->where('question_id', '=', $id)
             ->get();
+        $answers2 = DB::table('answers')
+            ->leftJoin('users', 'answers.user_id', '=', 'users.user_id')
+            ->where('question_id', '=', $id)
+            ->get();
+
         //dd($items3);
 
-        return [$question, $answers];
+        return [$question2, $answers2];
     }
 
     public static function findById($id) {

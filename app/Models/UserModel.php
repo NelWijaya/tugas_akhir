@@ -15,8 +15,9 @@ class UserModel {
     }
 
     public static function save($data) {
-        $new_item = DB::table('users')->insert($data);
-        return $new_item;
+        //dd($data);
+        $new_user = DB::table('users')->insert($data);
+        return $new_user;
     }
 
     public static function updatePoint($point, $userId){

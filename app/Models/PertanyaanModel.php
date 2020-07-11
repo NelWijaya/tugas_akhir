@@ -7,7 +7,11 @@ class PertanyaanModel {
 
     public static function get_all() {
         $question = DB::table('questions')->get();
-        return $question;
+        $question2 = DB::table('questions')
+            ->leftJoin('users', 'questions.user_id', '=', 'users.user_id')
+            ->get();
+        //dd($question2);
+        return $question2;
     }
 
     public static function save($data) {

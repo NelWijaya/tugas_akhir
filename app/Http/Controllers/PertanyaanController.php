@@ -12,8 +12,8 @@ class PertanyaanController extends Controller
 {
     public function index() {
         $questions = PertanyaanModel::get_all();
-        //dd($items);
-        return view('index', compact('questions')); //view semua pertanyaan
+        //dd($questions);
+        return view('pages.index', compact('questions')); //view semua pertanyaan
     }
 
     public function create() {
@@ -21,9 +21,10 @@ class PertanyaanController extends Controller
     }
 
     public function store(Request $request) {
-        //dd($request->all());
         $data = $request->all();
         unset($data["_token"]);
+        $uid = array("user_id" => 3); //temporary user_id, nanti ganti ke auth::id
+        $data = array_merge($data, $uid);
         //dd($data);
         $q = PertanyaanModel::save($data);
         return Redirect::to('/pertanyaan');
@@ -49,7 +50,7 @@ class PertanyaanController extends Controller
         $data = $request->all();
         $dt = array("updated_at" => Carbon::now('Asia/Jakarta')->toDateTimeString());
         $data = array_merge($data, $dt);
-        
+
         $question = PertanyaanModel::findById($id);
         $userId = $question["user_id"];
         $user = UserModel::get_user($userId);
