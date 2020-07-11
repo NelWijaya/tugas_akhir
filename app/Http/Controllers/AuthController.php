@@ -17,52 +17,54 @@ class AuthController extends Controller
         //     return view('master');
         // }
     }
-    public function login(Request $request){
-        $email      =   $request->input('email');
-        $password   =   $request->input('password');
+    public function login( Request $request ) {
+        $email      =   $request->input( 'email' );
+        $password   =   $request->input( 'password' );
 
-        $auth       =   Auth::attempt(['email' => $email, 'password' => $password]);
-        if($auth){
-            $user   =   User::where('email', $email)->first();
+        $auth       =   Auth::attempt( [ 'email' => $email, 'password' => $password ] );
+        if( $auth ){
+            $user   =   User::where( 'email' , $email )->first();
 
             //MAKE SESSION
-            session(['name' => $user->name]);
-            session(['id' => $user->user_id]);
+            session([ 'name' => $user->name ]);
+            session(['id'    => $user->user_id ]);
 
-            return redirect('/');
+            return redirect( '/' );
         }
     }
-    public function store(Request $request){
-        // dd($request->all());
-        $email          =    $request->input('email');
-        $name           =    $request->input('name');
-        $password       =    $request->input('password');
-        // dd($request->all());
+    public function store( Request $request ){
+        $email          =    $request->input( 'email' );
+        $name           =    $request->input( 'name' );
+        $password       =    $request->input( 'password' );
 
-        $alreadyEmail   =    User::where('email', $email)->first();
+        $alreadyEmail   =    User::where( 'email' , $email )->first();
 
-        if(!$alreadyEmail){
+        if( !$alreadyEmail ){
             $user = User::create([
                     'email'     => $email,
                     'name'      => $name,
                     'point'     => 0,
-                    'password'  => bcrypt($password)
+                    'password'  => bcrypt( $password )
                 ]);
 
-            session(['name' => $user->name]);
-            session(['id' => $user->user_id]);
+            session([ 'name' => $user->name ]);
+            session([ 'id' => $user->id ]);
 
-            return redirect('/');
+            return redirect( '/' );
         } else {
             return "email already registered";
         }
     }
 
-    public function logout(Request $request)
+    public function cekId( Request $request ){
+        dd( $request->session()->get( 'id' ) );
+    }
+
+    public function logout( Request $request )
 	{
 		Auth::logout();
 		$request->session()->regenerate();
 		$request->session()->flush();
-		return redirect('/');
+		return redirect( '/' );
 	}
 }

@@ -4,6 +4,8 @@
 <div class="card">
     <h5 class="card-header">Detail pertanyaan</h5>
     <div class="card-body">
+
+        @foreach ($question as $key => $q)
         <div class="row">
             <!-- <div class="col-4 col-md-2">
                 <a href="#" class="btn btn-outline-primary mb-md-2" style="width: 90px; height: 80px; padding: 10px">
@@ -19,8 +21,8 @@
                 <div class="row">
                     <div class="col">
                         <!-- Judul nya link, biar bisa menuju ke pertanyaannya secara detail -->
-                        <a href="#"> <h5 class="card-title">Judul</h5> </a>
-                        <p class="card-text">Isi pertanyaan</p><br>
+                        <a href="#"> <h5 class="card-title">{{$q->question_title}}</h5> </a>
+                        <p class="card-text">{!!$q->question_content!!}</p><br>
                         <!-- Ini untuk tags, kalau di klik akan memunculkan pertanyaan yang punya tags -->
                         <div class="row">
                             <a href="#" class="btn btn-success mr-2">tags 1</a>
@@ -33,29 +35,32 @@
                 </div>
                 <div class="row pt-3">
                     <div class="col">
-                        <p>Asked by : Nama Pengguna yang bertanya
-                            <br><span>posted: Jam posted <br> updated: Jam updated</span>
+                        <p>Asked by : {{$q->name}}
+                            <br><span>posted: {{$q->created_at}} <br> updated: {{$q->updated_at}}</span>
                             <!-- Pakai PHP jika memungkinkan --><br>
                         </p><br>
                         <!-- Pakai PHP jika memungkinkan -->
                     </div>
                 </div>
+            </div>
+        </div>
+        @endforeach
 
+        <div class="row">
+            <div class="container-fluid">
+                <h5><span>{{$ansqty}}</span> Answer</h5>
             </div>
         </div>
         <div class="row">
             <div class="container-fluid">
-                <h5>Answer <span>5</span></h5>
-            </div>
-        </div>
-        <div class="row">
-            <div class="container-fluid">
+
                 <!-- Foreach -->
+                @foreach ($answers as $key => $answer)
                 <div class="card mt-md-3">
-                    <div class="card-body">
-                    <div class="row">
+                    <div class="card-body ">
+                        <div class="row">
                             <div class="col-12">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <p class="card-text">{!!$answer->answer_content!!}</p>
                             </div>
                         </div>
                         <div class="row mt-5 mb-3">
@@ -70,44 +75,21 @@
                         <div class="row">
                             <div class="col-12">
                                 <p style="font-size : small;" class=" float-md-right text-muted">Answered:
-                                    <span>Nama Penjawab</span><br>
-                                    <span>posted: Jam posted <br> updated: Jam updated</span>
+                                    <span>Answered by {{$answer->name}}</span><br>
+                                    <span>posted: {{$answer->created_at}} <br> updated: {{$answer->updated_at}}</span>
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
+                @endforeach
+
                 <div class="card mt-md-3">
                     <div class="card-body ">
-                        <div class="row">
-                            <div class="col-12">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                        </div>
-                        <div class="row mt-5 mb-3">
-                            <div class="col-12 col-sm-3 col-lg-2">
-                                <a href="#" class="btn btn-outline-primary card-link">Comment</a>
-                            </div>
-                            <div class="col-12 mt-3 mt-sm-0 col-sm-4 col-lg-3">
-                                <!-- Good Answer (ini tombol untuk pemilik pertanyaan) -->
-                                <a href="#" class="btn btn-outline-primary card-link">Good Answer</a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <p style="font-size : small;" class=" float-md-right text-muted">Answered:
-                                    <span>Nama Penjawab</span><br>
-                                    <span>posted: Jam posted <br> updated: Jam updated</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mt-md-3">
-                    <div class="card-body ">
-                        <form action="#" method="POST">
+                        <form action="/jawaban/{{$id}}" method="POST">
+                            @csrf
                             <label for="answer">Answer</label>
-                            <textarea name="content" class="form-control my-editor" id="answer" rows="10" style="width: 100%;"></textarea>
+                            <textarea name="answer_content" class="form-control my-editor" id="answer" rows="10" style="width: 100%;"></textarea>
                             <button type="submit" class="btn btn-success mt-3"> Submit Answer</button>
                         </form>
                     </div>
