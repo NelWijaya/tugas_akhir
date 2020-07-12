@@ -9,8 +9,7 @@ class VoteModel {
     //QUESTION VOTE
 
     //check that the user has voted (get user id && question id) 
-    public static function questionVote($id) {
-        $userId = Auth::id();
+    public static function questionVote($id, $userId) {
         $data = DB::table('vote_questions')
                     ->where([
                         ['question_id', $id],
@@ -59,17 +58,17 @@ class VoteModel {
         return $total;
     }
 
+    //---------------------------------------------------
 
     //ANSWER VOTE
 
     //check that the user has voted (get user id && question id) 
-    public static function answerVote($id) {
-        $userId = Auth::id();
+    public static function answerVote($id, $userId) {
         $data = DB::table('vote_answers')
                     ->where([
                         ['answer_id', $id],
                         ['user_id', $userId]
-                    ])->get();
+                    ])->doesntExist();
         return $data;
     }
 
@@ -94,7 +93,7 @@ class VoteModel {
     public static function upvoteAnswerTotal($id) {
         $total = DB::table('vote_answers')
                     ->where([
-                        ['question_id', $id],
+                        ['answer_id', $id],
                         ['upvote', 1]
                     ])
                     ->count();
@@ -103,9 +102,9 @@ class VoteModel {
 
     //total downvote
     public static function downvoteAnswerTotal($id) {
-        $total = DB::table('vote_questions')
+        $total = DB::table('vote_answers')
                     ->where([
-                        ['question_id', $id],
+                        ['answer_id', $id],
                         ['downvote', 1]
                     ])
                     ->count();

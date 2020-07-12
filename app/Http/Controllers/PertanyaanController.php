@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use App\Models\PertanyaanModel;
+use App\Models\JawabanModel;
 use App\Models\VoteModel;
 use App\Models\UserModel;
 use Redirect;
@@ -11,9 +14,21 @@ use Redirect;
 class PertanyaanController extends Controller
 {
     public function index() {
+        $ansqty = [];
         $questions = PertanyaanModel::get_all();
         //dd($questions);
-        return view('pages.index', compact('questions')); //view semua pertanyaan
+        foreach($questions as $key => $q){
+            $idx = $q->question_id;
+            $answers = JawabanModel::get_all($idx);
+            $qty = count($answers[1]);
+            //dd($qty);
+            
+            $ansqty = array_merge($ansqty, array($key => $qty));
+            
+        }
+
+        //dd($questions);
+        return view('pages.index', compact('questions', 'ansqty')); //view semua pertanyaan
     }
 
     public function create() {
@@ -23,7 +38,7 @@ class PertanyaanController extends Controller
     public function store(Request $request) {
         $data = $request->all();
         unset($data["_token"]);
-        $uid = array("user_id" => 3); //temporary user_id, nanti ganti ke auth::id
+        $uid = array("user_id" => Session('id'));
         $data = array_merge($data, $uid);
         //dd($data);
         $q = PertanyaanModel::save($data);
@@ -48,28 +63,32 @@ class PertanyaanController extends Controller
 
     public function updateVote(Request $request, $id) {
         $data = $request->all();
-        $dt = array("updated_at" => Carbon::now('Asia/Jakarta')->toDateTimeString());
-        $data = array_merge($data, $dt);
-
         $question = PertanyaanModel::findById($id);
-        $userId = $question["user_id"];
-        $user = UserModel::get_user($userId);
-        $poin = $user["point"];
+        $uQid = $data["question_uid"]; // user id pemberi pertanyaan
+        $uVid = $data["user_id"]; // user id pemberi vote
+        $userQuestionPoint = UserModel::get_user($uQid); // mencari poin pemberi pertanyaan
+        $userVotePoint = UserModel::get_user($uVid); // mencari poin pemberi vote
+        $qPoin = $userQuestionPoint->point;  //poin pemberi pertanyaan
+        $vPoin = $userVotePoint->point;  //poin pemberi vote
 
-        if (VoteModel::questionVote($id)){ //if there is no vote
+        if (VoteModel::questionVote($id, $uVid)){ //if there is no vote
 
-            if(($data['downvote'] == 1) && ($poin <= 15)){
+            if(($data['downvote'] == 1) && ($vPoin <= 15)){
                 return "Anda tidak dapat melakukan downvote karna poin anda dibawah 15";
             } 
             else {
-                $vote = VoteModel::saveQuestionVote($request);
-                $addpoin = $poin + 10;
-                $delpoin = $poin - 1;
+                unset($data["_token"]);
+                unset($data["_method"]);
+                unset($data["question_uid"]);
+                //dd($data);
+                $vote = VoteModel::saveQuestionVote($data);
+                $addpoin = $qPoin + 10;
+                $delpoin = $qPoin - 1;
                 if($data['upvote'] == 1) {
-                    $updt = UserModel::updatePoint($addpoin, $userId);
+                    $updt = UserModel::updatePoint($addpoin, $uQid);
                 }
                 else if ($data['downvote'] == 1) {
-                    $updt = UserModel::updatePoint($delpoin, $userId);
+                    $updt = UserModel::updatePoint($delpoin, $uQid);
                 }
 
                 $totalUpvote = array("upvote_total" => VoteModel::upvoteQuestionTotal($id));

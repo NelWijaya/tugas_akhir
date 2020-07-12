@@ -52,11 +52,11 @@
         <div class="row">
             <div class="col-12 mb-4 mb-sm-0 col-sm-3 col-lg-2">
                 <a href="#" class="btn btn-outline-primary mb-md-2" style="width: 90px; height: 80px; padding: 10px">
-                    <span>5</span><br>
+                    <span>{{$ansqty[$key]}}</span><br>
                     Answer
                 </a>
                 <a href="#" class="btn btn-outline-primary" style="width: 90px; height: 80px; padding: 10px">
-                    <span>5</span><br>
+                    <span>{{$question->upvote_total - $question->downvote_total}}</span><br>
                     Votes
                 </a>
             </div>

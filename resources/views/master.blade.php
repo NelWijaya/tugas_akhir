@@ -11,7 +11,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('css/all.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 
+    @stack('scriptHead')
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:200,400,600&display=swap" rel="stylesheet">
 
@@ -30,6 +32,7 @@
 
             @if (Session('name'))
                 <a class="navbar-brand">Hello {{ Session('name') }}</a>
+                <a href="/logout" class="btn btn-primary btn-lg active" role="button" aria-pressed="false">Log Out</a>
             @else
                 <button type="button" class="btn btn-secondary col-12 col-lg-5 float-md-right ml-lg-3 ml-md-1 mb-3 mb-md-0 mt-3 mt-md-0"  data-toggle="modal" data-target="#signup">
                     Sign Up
@@ -117,7 +120,7 @@
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 bg-light d-md-block sidebar collapse border-right">
                 <div class="sidebar-sticky pt-3">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="/pertanyaan" role="tab" aria-controls="v-pills-home" aria-selected="false">All Question</a>
+                        <a href="/pertanyaan" class="nav-link" role="button" aria-pressed="false">Home</a>
                         <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="/pertanyaan" role="tab" aria-controls="v-pills-profile" aria-selected="false">Tags</a>
                         <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Users</a>
                     </div>

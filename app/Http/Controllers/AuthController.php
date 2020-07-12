@@ -57,7 +57,9 @@ class AuthController extends Controller
     }
 
     public function cekId( Request $request ){
-        dd( $request->session()->get( 'id' ) );
+        //dd( $request );
+        return $request->session()->get( 'id' );
+        //dd( $request->session()->get( 'id' ) );
     }
 
     public function logout( Request $request )

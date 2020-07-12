@@ -11,6 +11,7 @@ class JawabanModel {
             ->get();
         $question2 = DB::table('questions')
             ->leftJoin('users', 'questions.user_id', '=', 'users.user_id')
+            ->select('users.name', 'questions.*')
             ->where('question_id', '=', $id)
             ->get();
 
@@ -19,6 +20,7 @@ class JawabanModel {
             ->get();
         $answers2 = DB::table('answers')
             ->leftJoin('users', 'answers.user_id', '=', 'users.user_id')
+            ->select('users.name', 'answers.*')
             ->where('question_id', '=', $id)
             ->get();
 
@@ -29,7 +31,7 @@ class JawabanModel {
 
     public static function findById($id) {
         $data = DB::table('answers')
-                    ->where('answers_id', $id)
+                    ->where('answer_id', $id)
                     ->first();
         return $data;
     }
@@ -48,6 +50,16 @@ class JawabanModel {
                         'downvote_total'   => $request['downvote_total']
                     ]);
         return $vote;
+    }
+
+    public static function updateRelevant($id){
+        //dd($request);
+        $relevan = DB::table('answers')
+                    ->where('answer_id', $id)
+                    ->update([
+                        'relevan'     => 1
+                    ]);
+        return $relevan;
     }
 }
 

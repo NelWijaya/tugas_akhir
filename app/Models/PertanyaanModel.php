@@ -9,6 +9,7 @@ class PertanyaanModel {
         $question = DB::table('questions')->get();
         $question2 = DB::table('questions')
             ->leftJoin('users', 'questions.user_id', '=', 'users.user_id')
+            ->select('users.name', 'questions.*')
             ->get();
         //dd($question2);
         return $question2;
