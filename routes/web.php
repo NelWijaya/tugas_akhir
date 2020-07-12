@@ -31,6 +31,7 @@ Route::group(['middleware' => 'AuthMiddleware'], function () {
     Route::put('/jawaban/vote/{id}', 'JawabanController@updateVote');            //update vote jawaban
     Route::put('/pertanyaan/vote/{id}', 'PertanyaanController@updateVote');     //update vote pertanyaan
     Route::get('/jawaban/relevant/{id}', 'JawabanController@updateRelevant');  //daftar jawaban di 1 pertanyaan
+    Route::post('/jawaban/{id}', 'JawabanController@store');            //buat jawaban (id pertanyaan)
 });
 
 
