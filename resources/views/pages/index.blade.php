@@ -22,7 +22,7 @@
                         @csrf
                         <div class="modal-body">
                             <input type="text" class=" mb-2" placeholder="Title" name="question_title" required><br>
-                            <input type="text" class=" mb-2" placeholder="Tags" name="tags" required><br>
+                            <input type="text" class=" mb-2" placeholder="Tags" name="tag" required><br>
                             <textarea name="question_content" class="form-control my-editor" id="content" rows="10" style="width: 100%;"></textarea>
                         </div>
                         <div class="modal-footer">
@@ -72,11 +72,15 @@
                             $pieces = explode(" ",$question->tag );
                             $i = 0;
                         ?>
-                        @foreach($pieces as $kunci=>$benda)
-                            <a href="#" class="btn btn-success">#{{$pieces[$i]}}</a>
-                            <!-- <a href="#" class="btn btn-success">tags 1</a> <a href="#" class="btn btn-success">tags 2</a> -->
-                            <?php $i++; ?>
-                        @endforeach
+                        
+                            @foreach($pieces as $kunci=>$benda)
+                                @if($kunci != null)
+                                <a href="#" class="btn btn-success">#{{$pieces[$i]}}</a>
+                                <!-- <a href="#" class="btn btn-success">tags 1</a> <a href="#" class="btn btn-success">tags 2</a> -->
+                                <?php $i++; ?>
+                                @endif
+                            @endforeach
+                        
 
                     </div>
                 </div>

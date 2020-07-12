@@ -32,9 +32,9 @@ class PertanyaanModel {
         $update = DB::table('questions')
                     ->where('question_id', $id)
                     ->update([
-                        'question_title'     => $request['judul'],
-                        'question_content'   => $request['isi'],
-                        'tags'               => $request['tags']
+                        'question_title'     => $request['question_title'],
+                        'question_content'   => $request['question_content'],
+                        'tag'               => $request['tag']
                     ]);
         return $update;
     }

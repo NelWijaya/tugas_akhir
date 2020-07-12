@@ -54,8 +54,7 @@ class PertanyaanController extends Controller
 
     public function update(Request $request, $id) {
         $data = $request->all();
-        $dt = array("updated_at" => Carbon::now('Asia/Jakarta')->toDateTimeString());
-        $data = array_merge($data, $dt);
+        //dd($data);
         $updt = PertanyaanModel::update($data, $id);
         $link = "/pertanyaan/" . $id;
         return Redirect::to($link); //redirect to detail question

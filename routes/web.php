@@ -23,13 +23,14 @@ Route::get('/', 'PertanyaanController@index');
 Route::group(['middleware' => 'AuthMiddleware'], function () {
     //tambahkan route disini
     Route::get('cek-id', 'AuthController@cekId');
-    Route::get('/pertanyaan', 'PertanyaanController@index');            //daftar pertanyaan
-    Route::post('/pertanyaan', 'PertanyaanController@store');           //buat pertanyaan
-    Route::get('/pertanyaan/{id}', 'JawabanController@index');          //daftar jawaban di 1 pertanyaan
-    Route::put('/jawaban/vote/{id}', 'JawabanController@updateVote');   //update vote jawaban
-    Route::put('/pertanyaan/vote/{id}', 'PertanyaanController@updateVote');   //update vote pertanyaan
-    Route::get('/jawaban/relevant/{id}', 'JawabanController@updateRelevant');          //daftar jawaban di 1 pertanyaan
-
+    Route::get('/pertanyaan', 'PertanyaanController@index');                          //daftar pertanyaan
+    Route::post('/pertanyaan', 'PertanyaanController@store');                        //buat pertanyaan
+    Route::get('/pertanyaan/{id}', 'JawabanController@index');                      //daftar jawaban di 1 pertanyaan detail
+    Route::put('/pertanyaan/{id}', 'PertanyaanController@update');                 //submit form pertanyaan dan kembali ke index
+    Route::delete('/pertanyaan/{id}', 'PertanyaanController@delete');             //hapus pertanyaan
+    Route::put('/jawaban/vote/{id}', 'JawabanController@updateVote');            //update vote jawaban
+    Route::put('/pertanyaan/vote/{id}', 'PertanyaanController@updateVote');     //update vote pertanyaan
+    Route::get('/jawaban/relevant/{id}', 'JawabanController@updateRelevant');  //daftar jawaban di 1 pertanyaan
 });
 
 

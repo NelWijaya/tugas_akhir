@@ -36,16 +36,59 @@
 
 
                             <!-- DELETE DAN UPDATE DI SINI -->
-                            <form action="#" method="post">
-                                <a href="#" class="btn btn-warning mr-2"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a>
+                            <form action="/pertanyaan/{{$q->question_id}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                @if($q->user_id == Session('id'))
+                                    <button type="submit" class="btn btn-danger mr-2"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</button>
+                                @endif
                             </form>
-                            <a href="#" class="btn btn-primary mr-2"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Update</a><br>
-
+                            @if($q->user_id == Session('id'))
+                                <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#editquestion">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    Update Question
+                                </button>
+                            @endif
+                            <!-- Modal -->
+                            <div class="modal fade" id="editquestion" tabindex="-1" role="dialog" aria-labelledby="editquestionLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editquestionLabel">Edit Question</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="/pertanyaan/{{$q->question_id}}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="modal-body">
+                                                <input type="text" class=" mb-2" placeholder="Title" name="question_title" value="{{$q->question_title}}" required><br>
+                                                <input type="text" class=" mb-2" placeholder="Tags" name="tag" value="{{$q->tag}}" required><br>
+                                                <textarea name="question_content" class="form-control my-editor" id="content" rows="10" style="width: 100%;">{{$q->question_content}}</textarea>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Update Question</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                         <div class="row mt-2">
-                            <a href="#" class="btn btn-success mr-2">tags 1</a>
-                            <a href="#" class="btn btn-success mr-2">tags 2</a><br>
+                            <?php
+                                $pieces = explode(" ",$q->tag );
+                                $i = 0;
+                            ?>
+                            @foreach($pieces as $kunci=>$benda)
+                                @if($kunci != null)
+                                <a href="#" class="btn btn-success">#{{$pieces[$i]}}</a>
+                                <!-- <a href="#" class="btn btn-success">tags 1</a> <a href="#" class="btn btn-success">tags 2</a> -->
+                                <?php $i++; ?>
+                                @endif
+                            @endforeach
                         </div>
                         <div class="row mt-5">
                             <form action="/pertanyaan/vote/{{$q->question_id}}" method="POST">
@@ -128,11 +171,11 @@
                             <div class="col-12 mt-3 mt-sm-0 col-sm-4 col-lg-3">
                                 <!-- Good Answer (ini tombol untuk pemilik pertanyaan) -->
                                 @if ($answer->relevan == 1)
-                                <a href="#" class="btn btn-success card-link">Relevant!</a>
+                                <a class="btn btn-success card-link">Relevant!</a>
                                 @elseif ($question[0]->user_id == Session('id'))
                                 <a href="/jawaban/relevant/{{$answer->answer_id}}" class="btn btn-outline-primary card-link">Good Answer</a>
                                 @else
-                                <a href="#" class="btn btn-outline-secondary card-link">Good Answer</a>
+                                <a class="btn btn-outline-secondary card-link">Good Answer</a>
                                 @endif
                             </div>
                         </div>
