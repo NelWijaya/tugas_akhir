@@ -21,7 +21,8 @@
                     <form action="/pertanyaan" method="POST">
                         @csrf
                         <div class="modal-body">
-                            <input type="text" class=" mb-2" placeholder="Title" name="question_title" required>
+                            <input type="text" class=" mb-2" placeholder="Title" name="question_title" required><br>
+                            <input type="text" class=" mb-2" placeholder="Tags" name="tags" required><br>
                             <textarea name="question_content" class="form-control my-editor" id="content" rows="10" style="width: 100%;"></textarea>
                         </div>
                         <div class="modal-footer">
@@ -64,10 +65,19 @@
                 <div class="row">
                     <div class="col">
                         <!-- Judul nya link, biar bisa menuju ke pertanyaannya secara detail -->
-                        <a href="/pertanyaan/{{$question->question_id}}"> <h5 class="card-title">{{$question->question_title}}</h5> </a>
+                        <a href="/pertanyaan/{{$question->question_id}}"> <h5 class="card-title">{{$question->question_title}} </h5> </a>
                         <p class="card-text">{!! $question->question_content !!}</p><br>
                         <!-- Ini untuk tags, kalau di klik akan memunculkan pertanyaan yang punya tags -->
-                        <a href="#" class="btn btn-success">tags 1</a> <a href="#" class="btn btn-success">tags 2</a>
+                        <?php
+                            $pieces = explode(" ",$question->tag );
+                            $i = 0;
+                        ?>
+                        @foreach($pieces as $kunci=>$benda)
+                            <a href="#" class="btn btn-success">#{{$pieces[$i]}}</a>
+                            <!-- <a href="#" class="btn btn-success">tags 1</a> <a href="#" class="btn btn-success">tags 2</a> -->
+                            <?php $i++; ?>
+                        @endforeach
+
                     </div>
                 </div>
                 <div class="row pt-3">

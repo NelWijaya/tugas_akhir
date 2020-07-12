@@ -22,8 +22,8 @@
                     <span></span>
                     Down
                 </a>
-                
-            </div> 
+
+            </div>
              -->
             <div class="col-8 col-md-10 ">
                 <div class="row">
@@ -32,7 +32,18 @@
                         <a href="#"> <h5 class="card-title">{{$q->question_title}}</h5> </a>
                         <p class="card-text">{!!$q->question_content!!}</p><br>
                         <!-- Ini untuk tags, kalau di klik akan memunculkan pertanyaan yang punya tags -->
-                        <div class="row">
+                        <div class="row mt-2">
+
+
+                            <!-- DELETE DAN UPDATE DI SINI -->
+                            <form action="#" method="post">
+                                <a href="#" class="btn btn-warning mr-2"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a>
+                            </form>
+                            <a href="#" class="btn btn-primary mr-2"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Update</a><br>
+
+
+                        </div>
+                        <div class="row mt-2">
                             <a href="#" class="btn btn-success mr-2">tags 1</a>
                             <a href="#" class="btn btn-success mr-2">tags 2</a><br>
                         </div>

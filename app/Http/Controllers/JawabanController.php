@@ -21,17 +21,17 @@ class JawabanController extends Controller
     }
 
     public function store(Request $request, $id){
-        
+
         $data = $request->all();
         unset($data["_token"]);
         $question_id = array("question_id" => $id);
-        $uid = array("user_id" => Session('id')); 
+        $uid = array("user_id" => Session('id'));
         $data = array_merge($data, $question_id, $uid);
         //dd($idu);
         $ans = JawabanModel::save($data);
         $link = "/pertanyaan/" . $id;
         return Redirect::to($link); //redirect to detail question
-        
+
     }
 
     public function updateRelevant($id){
@@ -53,12 +53,12 @@ class JawabanController extends Controller
         $userVotePoint = UserModel::get_user($uVid); // mencari poin pemberi vote
         $aPoin = $userAnswerPoint->point;  //poin pemberi jawaban
         $vPoin = $userVotePoint->point;  //poin pemberi vote
-        
+
         if (VoteModel::answerVote($id, $uVid)){ //if there is no vote
 
             if(($data['downvote'] == 1) && ($vPoin <= 15)){
                 return "Anda tidak dapat melakukan downvote karna poin anda dibawah 15";
-            } 
+            }
             else {
                 unset($data["_token"]);
                 unset($data["_method"]);
@@ -69,7 +69,7 @@ class JawabanController extends Controller
                 unset($data2["question_id"]);
                 //dd($data2);
                 $vote = VoteModel::saveAnswerVote($data2);
-                
+
                 $addpoin = $aPoin + 10;
                 $delpoin = $aPoin - 1;
                 if($data['upvote'] == 1) {

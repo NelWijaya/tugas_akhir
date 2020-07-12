@@ -22,9 +22,9 @@ class PertanyaanController extends Controller
             $answers = JawabanModel::get_all($idx);
             $qty = count($answers[1]);
             //dd($qty);
-            
+
             $ansqty = array_merge($ansqty, array($key => $qty));
-            
+
         }
 
         //dd($questions);
@@ -43,7 +43,7 @@ class PertanyaanController extends Controller
         //dd($data);
         $q = PertanyaanModel::save($data);
         return Redirect::to('/pertanyaan');
-        
+
     }
 
     public function edit($id) {
@@ -75,7 +75,7 @@ class PertanyaanController extends Controller
 
             if(($data['downvote'] == 1) && ($vPoin <= 15)){
                 return "Anda tidak dapat melakukan downvote karna poin anda dibawah 15";
-            } 
+            }
             else {
                 unset($data["_token"]);
                 unset($data["_method"]);
